@@ -1,0 +1,22 @@
+{
+  "name": "mini-js-30",
+  "version": "1.0.0",
+  "description": "mini pure js projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js, !node_modules/**/*' --directory --port 7777 --browser 'Google Chrome Canary'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlabna/mini-js-30.git"
+  },
+  "author": "tlabna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlabna/mini-js-30/issues"
+  },
+  "homepage": "https://github.com/tlabna/mini-js-30#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.5"
+  }
+}
