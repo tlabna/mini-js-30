@@ -184,6 +184,28 @@
     </li>
   </ul>
   <script>
+    // convert from NodeList to Array
+    const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+
+    const seconds = timeNodes
+      .map(node => node.dataset.time)
+      .map(timeCode => {
+        // split minutes and seconds from string
+        const [mins, secs] = timeCode.split(':').map(parseFloat) // convert strings to numbers
+        return (mins * 60) + secs
+      })
+      // reduce the array of seconds to one big number in seconds
+      .reduce((total, nextSeconds) => total + nextSeconds)
+
+    let secondsLeft = seconds
+
+    const hours = Math.floor(secondsLeft / 3600) // grab the lower limit in hours
+    secondsLeft = secondsLeft % 3600 // Get how many seconds left in an hour
+
+    const mins = Math.floor(secondsLeft / 60)
+    secondsLeft = secondsLeft % 60 // Get left over seconds in a minute
+
+    console.log(`${hours}:${mins}:${secondsLeft}`);
   </script>
 </body>
 
