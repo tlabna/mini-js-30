@@ -45,7 +45,62 @@
   <script>
     const addItems = document.querySelector('.add-items');
     const itemsList = document.querySelector('.plates');
-    const items = [];
+    const items = JSON.parse(localStorage.getItem('items')) || [];
+
+    function addItem(e) {
+      e.preventDefault();
+      // this is the form element
+      const text = this.querySelector('[name=item]').value
+      const item = {
+        text,
+        done: false
+      };
+
+      // Add item to items array
+      items.push(item)
+
+      // Add items to .plates list
+      populateList(items, itemsList);
+
+      // set items into localStorage
+      // localStorage will only accept strings
+      localStorage.setItem('items', JSON.stringify(items))
+
+      // reset() will clear the form element
+      this.reset();
+    }
+
+    function populateList(plates = {}, platesList) {
+      platesList.innerHTML = plates.map((plate, i) => {
+        return `
+          <li>
+            <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? "checked" : ""} />
+            <label for="item${i}">${plate.text}</label>
+          </li>
+        `;
+      }).join('');
+    }
+
+    function toggleDone(e) {
+      if (!e.target.matches('input')) return // skip this unless it's an input
+
+      const el = e.target
+      const index = el.dataset.index
+
+      items[index].done = !items[index].done // set it to opposite value
+      localStorage.setItem('items', JSON.stringify(items)) // update  local storage
+      populateList(items, itemsList) // visually update
+    }
+
+    // Use submit to cover all of our basis
+    // much better then click
+    addItems.addEventListener('submit', addItem)
+    itemsList.addEventListener('click', toggleDone)
+
+    // get items from localStorage and remember to convert it
+    // back to the data structure it originally was and not in string format
+    // Done above for items (line 48)
+    populateList(items, itemsList)
 
   </script>
 
