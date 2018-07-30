@@ -169,7 +169,25 @@
   </div>
 
   <script>
+    const nav = document.querySelector('#main');
+    // Get height value for top of navbar
+    const topOfNav = nav.offsetTop;
 
+    function fixNav() {
+      if (window.scrollY >= topOfNav) {
+        // grab the height of the navbar and add that amount to body top
+        // Why? to take up the space the navbar left since now it is out of flow from the document
+        // It will stop children elements of body of taking up that space after the navbar is fixed
+        document.body.style.paddingTop = nav.offsetHeight + 'px';
+        // putting class on the body because it's easier to select any children elements from body
+        document.body.classList.add('fixed-nav');
+      } else {
+        document.body.style.paddingTop = 0; // put padding back to normal if it's been changed
+        document.body.classList.remove('fixed-nav');
+      }
+    }
+
+    window.addEventListener('scroll', fixNav)
   </script>
 
 </body>
