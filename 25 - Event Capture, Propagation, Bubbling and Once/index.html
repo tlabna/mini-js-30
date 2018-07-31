@@ -46,7 +46,27 @@
 
   <button></button>
   <script>
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
 
+    function logText(e) {
+      console.log(this.classList.value);
+
+      // stop propagation (i.e stop after first trigger event)
+      // e.stopPropagation();
+    }
+
+    // 3rd argument = options -> {}
+    // capture: true -> means it will trigger the events on the way down the dom tree
+    // by default it is false which is BUBBLING -> it will go down the dom tree and trigger events back on the way up
+    divs.forEach(div => div.addEventListener('click', logText, {
+      capture: false,
+      // once option -> unbind after first click event
+      // same as calling removeEventListener() -> in this case 'click' event listener will only run once and never again
+      once: true}));
+
+      // button can only ever be clicked once
+      button.addEventListener('click', () => console.log('clicked!!'), {once: true})
   </script>
 </body>
 
