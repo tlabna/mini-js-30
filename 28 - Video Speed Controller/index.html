@@ -17,6 +17,32 @@
   </div>
 
   <script>
+    const speed = document.querySelector('.speed');
+    const bar = speed.querySelector('.speed-bar');
+    const video = document.querySelector('.flex');
+
+    function handleMove(e) {
+      // subtracting offsetTop because we can't assume bar will be at the top
+      // there could be padding, margin or another element on top
+      const y = e.pageY - this.offsetTop;
+      const percent = y / this.offsetHeight;
+      const min = 0.4; // lower bound speed rate
+      const max = 4; // upper bound speed rate
+      const height = Math.round(percent * 100) + '%'
+      // offset height
+      // at 0% = 0.4x and at 100%=4x
+      const playbackRate = percent * (max - min) + min;
+
+      // change height css to height %
+      // change text to playbackRate
+      bar.style.height = height;
+      bar.textContent = playbackRate.toFixed(2) + 'x';
+
+      // apply playback rate to video
+      video.playbackRate = playbackRate;
+    }
+
+    speed.addEventListener('mousemove', handleMove)
   </script>
 </body>
 
