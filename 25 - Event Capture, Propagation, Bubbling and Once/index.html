@@ -63,10 +63,11 @@
       capture: false,
       // once option -> unbind after first click event
       // same as calling removeEventListener() -> in this case 'click' event listener will only run once and never again
-      once: true}));
+      once: true
+    }));
 
-      // button can only ever be clicked once
-      button.addEventListener('click', () => console.log('clicked!!'), {once: true})
+    // button can only ever be clicked once
+    button.addEventListener('click', () => console.log('clicked!!'), { once: true })
   </script>
 </body>
 
